@@ -1,0 +1,74 @@
+package project.spring.model.dal.dto;
+
+import java.io.Serializable;
+
+public class StudentDto implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String name;
+	private String email;
+	private String password;
+	private int groupNr;
+	private String hobby;
+
+	public StudentDto() {
+
+	}
+
+	public StudentDto(String name, String email, String password, int groupNr, String hobby) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.groupNr = groupNr;
+		this.hobby = hobby;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getGroup() {
+		return groupNr;
+	}
+
+	public void setGroup(int group) {
+		this.groupNr = group;
+	}
+
+	public String getHobby() {
+		return hobby;
+	}
+
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
+	}
+
+	public String toString() {
+		return "Student" + "name='" + this.name + '\'' + ", email='" + this.email + '\'' + ", group=" + this.groupNr
+				+ '\'' + ", hobby='" + this.hobby;
+	}
+
+}
