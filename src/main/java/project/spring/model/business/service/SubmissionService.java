@@ -99,14 +99,7 @@ public class SubmissionService implements ISubmissionService {
 	public boolean updateSubmission(Long id, int grade) {
 		Submission submissionToUpdate = submissionRepository.findOne(id);
 		if (submissionToUpdate != null) {
-			//Assignment assignment = submissionToUpdate.getAssignment();
-			//Student student = submissionToUpdate.getStudent();
 			if ((grade > 0) && (grade <= 10)) {
-				/*
-				 * submissionToUpdate.setSubmissionId(id);
-				 * submissionToUpdate.setAssignment(assignment);
-				 * submissionToUpdate.setStudent(student);
-				 */
 				submissionToUpdate.setGrade(grade);
 				submissionRepository.save(submissionToUpdate);
 				return true;
