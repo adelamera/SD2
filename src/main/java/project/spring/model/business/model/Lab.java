@@ -40,6 +40,7 @@ public class Lab {
 	public Lab(int laboratoryNr, Date date, String title, String curricula, String description) {
 		this.laboratoryNr = laboratoryNr;
 		this.date = date;
+		this.title = title;
 		this.curricula = curricula;
 		this.description = description;
 	}

@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +18,10 @@ public class Assignment {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "assignmentId")
 	private Long assignmentId;
+	
+	@ManyToOne
+	@JoinColumn(name = "laboratoryId")
+	private Lab lab;
 
 	@Column(name = "name")
 	private String name;
@@ -66,6 +72,14 @@ public class Assignment {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Lab getLab() {
+		return lab;
+	}
+
+	public void setLab(Lab lab) {
+		this.lab = lab;
 	}
 
 	public String toString() {

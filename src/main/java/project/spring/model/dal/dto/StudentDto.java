@@ -10,6 +10,7 @@ public class StudentDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String email;
+	private String username;
 	private String password;
 	private int groupNr;
 	private String hobby;
@@ -18,9 +19,10 @@ public class StudentDto implements Serializable {
 
 	}
 
-	public StudentDto(String name, String email, String password, int groupNr, String hobby) {
+	public StudentDto(String name, String email, String username, String password, int groupNr, String hobby) {
 		this.name = name;
 		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.groupNr = groupNr;
 		this.hobby = hobby;
@@ -40,6 +42,14 @@ public class StudentDto implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

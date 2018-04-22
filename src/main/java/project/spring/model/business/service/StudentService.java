@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import project.spring.model.business.model.Student;
 import project.spring.model.dal.dto.StudentDto;
 import project.spring.model.dal.repository.IStudentRepository;
+import project.spring.utils.PasswordEncryptor;
+import project.spring.utils.SecureTokenGenerator;
 
 @Service
 public class StudentService implements IStudentService {
@@ -33,41 +35,92 @@ public class StudentService implements IStudentService {
 	@Override
 	public StudentDto getStudentById(Long id) {
 		Student student = studentRepository.findOne(id);
-		return mapDto(student);
+		if (student != null) {
+			return mapDto(student);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
-	public void saveStudent(StudentDto student) {
+	public String saveStudent(StudentDto student) {
 		Student studentToSave = this.map(student);
-		studentRepository.save(studentToSave);
+		if (studentRepository.findByEmail(studentToSave.getEmail()) != null) {
+			return null;
+		} else {
+			studentToSave.setUsername(SecureTokenGenerator.nextToken());
+			studentRepository.save(studentToSave);
+			return studentToSave.getUsername();
+
+		}
 	}
 
 	@Override
-	public void updateStudent(Long id, StudentDto student) {
+	public boolean updateStudent(Long id, StudentDto student) {
 		Student studentToUpdate = studentRepository.findOne(id);
 		if (studentToUpdate != null) {
 			studentToUpdate = map(student);
 			studentToUpdate.setStudentId(id);
+			studentToUpdate.setPassword(PasswordEncryptor.setPasswordEncrypt(studentToUpdate.getPassword()));
 			studentRepository.save(studentToUpdate);
+			return true;
+		} else {
+			return false;
 		}
 
 	}
 
 	@Override
-	public void deleteStudent(Long id) {
-		studentRepository.delete(id);
+	public boolean deleteStudent(Long id) {
+		Student studentToDelete = studentRepository.findOne(id);
+		if (studentToDelete != null) {
+			studentRepository.delete(id);
+			return true;
+		} else {
+			return false;
+		}
 
 	}
 
+	@Override
+	public boolean register(String username, StudentDto student) {
+		Student studentToUpdate = studentRepository.findByUsername(username);
+		if (studentToUpdate != null) {
+			Long id = studentToUpdate.getStudentId();
+			String email = studentToUpdate.getEmail();
+			if ((email.equals(student.getEmail()))
+					&& (studentRepository.findByUsername(student.getUsername()) == null)) {
+				studentToUpdate = map(student);
+				studentToUpdate.setStudentId(id);
+				studentToUpdate.setPassword(PasswordEncryptor.setPasswordEncrypt(studentToUpdate.getPassword()));
+				studentRepository.save(studentToUpdate);
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	@Override
+	public StudentDto login(String username, String password) {
+		Student student = studentRepository.findByUsername(username);
+		if (student != null) {
+			if (student.getPassword().equals(PasswordEncryptor.setPasswordEncrypt(password))) {
+				return mapDto(student);
+			}
+		}
+		return null;
+	}
+
 	public StudentDto mapDto(Student student) {
-		StudentDto studentDto = new StudentDto(student.getName(), student.getEmail(), student.getPassword(),
-				student.getGroup(), student.getHobby());
+		StudentDto studentDto = new StudentDto(student.getName(), student.getEmail(), student.getUsername(),
+				student.getPassword(), student.getGroup(), student.getHobby());
 		return studentDto;
 	}
 
 	public Student map(StudentDto student) {
-		Student stud = new Student(student.getName(), student.getEmail(), student.getPassword(), student.getGroup(),
-				student.getHobby());
+		Student stud = new Student(student.getName(), student.getEmail(), student.getUsername(), student.getPassword(),
+				student.getGroup(), student.getHobby());
 		return stud;
 	}
 

@@ -1,5 +1,7 @@
 package project.spring.model.dal.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -10,5 +12,7 @@ import project.spring.model.business.model.Assignment;
 @Repository
 @Transactional
 public interface IAssignmentRepository extends CrudRepository<Assignment, Long> {
+
+	List<Assignment> findByLabLaboratoryId(Long laboratoryId);
 
 }

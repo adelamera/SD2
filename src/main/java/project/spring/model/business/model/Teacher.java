@@ -16,8 +16,8 @@ public class Teacher {
 	@Column(name = "teacherId")
 	private Long teacherId;
 
-	@Column(name = "email")
-	private String email;
+	@Column(name = "username")
+	private String username;
 
 	@Column(name = "password")
 	private String password;
@@ -26,8 +26,8 @@ public class Teacher {
 
 	}
 
-	public Teacher(String email, String password) {
-		this.email = email;
+	public Teacher(String username, String password) {
+		this.username = username;
 		this.password = password;
 	}
 
@@ -39,12 +39,12 @@ public class Teacher {
 		this.teacherId = teacherId;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -56,7 +56,7 @@ public class Teacher {
 	}
 
 	public String toString() {
-		return "Teacher" + "id=" + this.teacherId + ", email='" + this.email;
+		return "Teacher" + "id=" + this.teacherId + ", username='" + this.username;
 	}
 
 }

@@ -22,6 +22,7 @@ public class LabDto implements Serializable {
 	public LabDto(int laboratoryNr, Date date, String title, String curricula, String description) {
 		this.laboratoryNr = laboratoryNr;
 		this.date = date;
+		this.title = title;
 		this.curricula = curricula;
 		this.description = description;
 	}

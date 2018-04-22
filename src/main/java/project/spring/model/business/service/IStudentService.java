@@ -9,10 +9,14 @@ public interface IStudentService {
 
 	StudentDto getStudentById(Long id);
 
-	void saveStudent(StudentDto student);
+	String saveStudent(StudentDto student);
 
-	void updateStudent(Long id, StudentDto student);
+	boolean updateStudent(Long id, StudentDto student);
 
-	void deleteStudent(Long id);
+	boolean deleteStudent(Long id);
+
+	boolean register(String username, StudentDto student);
+	
+	StudentDto login(String username, String password);
 
 }

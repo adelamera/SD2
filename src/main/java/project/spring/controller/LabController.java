@@ -3,6 +3,8 @@ package project.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,24 +31,50 @@ public class LabController {
 		return labService.getAllLabs();
 	}
 
+	@GetMapping("/labs/{keyword}")
+	public List<LabDto> getAllLabsByKeyword(@RequestParam String keyword) {
+		return labService.getAllLabsByKeyword(keyword);
+	}
+
 	@GetMapping("/labs/{id}")
-	public LabDto getLabById(@RequestParam Long id) {
-		return labService.getLabById(id);
+	public ResponseEntity<LabDto> getLabById(@RequestParam Long id) {
+		LabDto lab = labService.getLabById(id);
+		if (lab == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		} else {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(lab);
+		}
 	}
 
 	@PostMapping("/labs")
-	public void saveLab(@RequestBody LabDto labToSave) {
-		labService.saveLab(labToSave);
+	public ResponseEntity<String> saveLab(@RequestBody LabDto labToSave) {
+		boolean saved = labService.saveLab(labToSave);
+		if (saved == false) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The lab number is invalid");
+		} else {
+			return ResponseEntity.status(HttpStatus.CREATED).body("The lab was successfully saved");
+		}
 	}
 
 	@PutMapping("/labs/{id}")
-	public void updateLab(@RequestParam Long id, @RequestBody LabDto labToUpdate) {
-		labService.updateLab(id, labToUpdate);
+	public ResponseEntity<String> updateLab(@RequestParam Long id, @RequestBody LabDto labToUpdate) {
+		boolean updated = labService.updateLab(id, labToUpdate);
+		if (updated == false) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The lab number is invalid");
+		} else {
+			return ResponseEntity.status(HttpStatus.CREATED).body("The lab was successfully updated");
+		}
 	}
 
 	@DeleteMapping("/labs/{id}")
-	public void deleteLab(@RequestParam Long id) {
-		labService.deleteLab(id);
+	public ResponseEntity<String> deleteLab(@RequestParam Long id) {
+		boolean deleted = labService.deleteLab(id);
+		if (deleted == false) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The lab doesn't exist");
+		} else {
+			return ResponseEntity.status(HttpStatus.CREATED).body("The lab was successfully deleted");
+		}
+
 	}
 
 }

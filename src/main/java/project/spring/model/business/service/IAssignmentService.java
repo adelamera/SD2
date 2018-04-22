@@ -10,10 +10,12 @@ public interface IAssignmentService {
 
 	AssignmentDto getAssignmentById(Long id);
 
-	void saveAssignment(AssignmentDto Assignment);
+	boolean saveAssignment(AssignmentDto Assignment, Long laboratoryId);
 
-	void updateAssignment(Long id, AssignmentDto Assignment);
+	boolean updateAssignment(Long id, AssignmentDto Assignment);
 
-	void deleteAssignment(Long id);
+	boolean deleteAssignment(Long id);
+
+	List<AssignmentDto> getAllAssignmentsForLab(Long laboratoryId);
 
 }

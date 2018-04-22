@@ -1,7 +1,9 @@
 package project.spring.model.business.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,30 +35,61 @@ public class LabService implements ILabService {
 	@Override
 	public LabDto getLabById(Long id) {
 		Lab lab = labRepository.findOne(id);
-		return mapDto(lab);
-	}
-
-	@Override
-	public void saveLab(LabDto lab) {
-		Lab labToSave = this.map(lab);
-		labRepository.save(labToSave);
-
-	}
-
-	@Override
-	public void updateLab(Long id, LabDto lab) {
-		Lab labToUpdate = labRepository.findOne(id);
-		if (labToUpdate != null) {
-			labToUpdate = map(lab);
-			labToUpdate.setLaboratoryId(id);
-			labRepository.save(labToUpdate);
+		if (lab != null) {
+			return mapDto(lab);
+		} else {
+			return null;
 		}
 
 	}
 
 	@Override
-	public void deleteLab(Long id) {
-		labRepository.delete(id);
+	public boolean saveLab(LabDto lab) {
+		Lab labToSave = this.map(lab);
+		if (((labToSave.getLaboratoryNr() > 14) || (labToSave.getLaboratoryNr() < 1))
+				|| (labRepository.findByLaboratoryNr(labToSave.getLaboratoryNr()) != null)) {
+			return false;
+		} else {
+			labRepository.save(labToSave);
+			return true;
+		}
+
+	}
+
+	@Override
+	public boolean updateLab(Long id, LabDto lab) {
+		Lab labToUpdate = labRepository.findOne(id);
+		if (labToUpdate != null) {
+			if ((labToUpdate.getLaboratoryNr() <= 14) && (labToUpdate.getLaboratoryNr() >= 1)
+					&& (labRepository.findByLaboratoryNr(labToUpdate.getLaboratoryNr()) == null)) {
+				labToUpdate = map(lab);
+				labToUpdate.setLaboratoryId(id);
+				labRepository.save(labToUpdate);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteLab(Long id) {
+		Lab labToDelete = labRepository.findOne(id);
+		if (labToDelete != null) {
+			labRepository.delete(id);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public List<LabDto> getAllLabsByKeyword(String keyword) {
+		List<LabDto> labsDto = new ArrayList<LabDto>();
+		Set<Lab> labs = new HashSet<Lab>();
+		labRepository.findAllByCurriculaContaining(keyword).forEach(labs::add);
+		labRepository.findAllByDescriptionContaining(keyword).forEach(labs::add);
+		labsDto = labs.stream().map(s -> this.mapDto(s)).collect(Collectors.toList());
+		return labsDto;
 	}
 
 	public LabDto mapDto(Lab lab) {

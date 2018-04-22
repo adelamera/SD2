@@ -22,6 +22,9 @@ public class Student {
 	@Column(name = "email")
 	private String email;
 
+	@Column(name = "username")
+	private String username;
+
 	@Column(name = "password")
 	private String password;
 
@@ -35,9 +38,10 @@ public class Student {
 
 	}
 
-	public Student(String name, String email, String password, int groupNr, String hobby) {
+	public Student(String name, String email, String username, String password, int groupNr, String hobby) {
 		this.name = name;
 		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.groupNr = groupNr;
 		this.hobby = hobby;
@@ -65,6 +69,14 @@ public class Student {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

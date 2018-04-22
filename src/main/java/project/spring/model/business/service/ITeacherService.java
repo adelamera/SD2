@@ -10,10 +10,12 @@ public interface ITeacherService {
 
 	TeacherDto getTeacherById(Long id);
 
-	void saveTeacher(TeacherDto teacher);
+	boolean saveTeacher(TeacherDto teacher);
 
-	void updateTeacher(Long id, TeacherDto teacher);
+	boolean updateTeacher(Long id, TeacherDto teacher);
 
-	void deleteTeacher(Long id);
+	boolean deleteTeacher(Long id);
+
+	TeacherDto login(String username, String password);
 
 }

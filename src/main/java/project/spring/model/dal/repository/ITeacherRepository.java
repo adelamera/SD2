@@ -11,4 +11,6 @@ import project.spring.model.business.model.Teacher;
 @Transactional
 public interface ITeacherRepository extends CrudRepository<Teacher, Long> {
 
+	public Teacher findByUsername(String username);
+
 }

@@ -10,10 +10,12 @@ public interface ILabService {
 
 	LabDto getLabById(Long id);
 
-	void saveLab(LabDto Lab);
+	boolean saveLab(LabDto lab);
 
-	void updateLab(Long id, LabDto Lab);
+	boolean updateLab(Long id, LabDto Lab);
 
-	void deleteLab(Long id);
+	boolean deleteLab(Long id);
+	
+	List<LabDto> getAllLabsByKeyword(String keyword);
 
 }
