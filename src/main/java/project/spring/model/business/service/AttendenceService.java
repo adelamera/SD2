@@ -51,15 +51,19 @@ public class AttendenceService implements IAttendenceService {
 	}
 
 	@Override
-	public boolean saveAttendence(AttendenceDto attendence, Long studentId, Long laboratoryId) {
+	public boolean saveAttendence(AttendenceDto attendence) {
 		Attendence attendenceToSave = this.map(attendence);
-		Student student = studentRepository.findOne(studentId);
-		Lab lab = labRepository.findOne(laboratoryId);
+		Student student = studentRepository.findOne(attendence.getStudentId());
+		Lab lab = labRepository.findOne(attendence.getLaboratoryId());
 		if ((lab != null) && (student != null)) {
-			attendenceToSave.setStudent(student);
-			attendenceToSave.setLaboratory(lab);
-			attendenceRepository.save(attendenceToSave);
-			return true;
+			Attendence a = attendenceRepository.findByLabLaboratoryIdAndStudentStudentId(lab.getLaboratoryId(),
+					student.getStudentId());
+			if (a == null) {
+				attendenceToSave.setStudent(student);
+				attendenceToSave.setLaboratory(lab);
+				attendenceRepository.save(attendenceToSave);
+				return true;
+			}
 		}
 		return false;
 
@@ -69,8 +73,12 @@ public class AttendenceService implements IAttendenceService {
 	public boolean updateAttendence(Long id, AttendenceDto attendence) {
 		Attendence attendenceToUpdate = attendenceRepository.findOne(id);
 		if (attendenceToUpdate != null) {
+			Student student = attendenceToUpdate.getStudent();
+			Lab lab = attendenceToUpdate.getLaboratory();
 			attendenceToUpdate = map(attendence);
 			attendenceToUpdate.setAttendenceId(id);
+			attendenceToUpdate.setLaboratory(lab);
+			attendenceToUpdate.setStudent(student);
 			attendenceRepository.save(attendenceToUpdate);
 			return true;
 		}
@@ -91,6 +99,8 @@ public class AttendenceService implements IAttendenceService {
 
 	public AttendenceDto mapDto(Attendence attendence) {
 		AttendenceDto attendenceDto = new AttendenceDto();
+		attendenceDto.setLaboratoryId(attendence.getLaboratory().getLaboratoryId());
+		attendenceDto.setStudentId(attendence.getStudent().getStudentId());
 		return attendenceDto;
 	}
 

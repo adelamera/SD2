@@ -96,19 +96,22 @@ public class SubmissionService implements ISubmissionService {
 	}
 
 	@Override
-	public boolean updateSubmission(Long id, SubmissionDto submission) {
+	public boolean updateSubmission(Long id, int grade) {
 		Submission submissionToUpdate = submissionRepository.findOne(id);
 		if (submissionToUpdate != null) {
-			Assignment assignment = submissionToUpdate.getAssignment();
-			Student student = submissionToUpdate.getStudent();
-			if ((submission.getGrade() > 0) && (submission.getGrade() <= 10)) {
-				submissionToUpdate = map(submission);
-				submissionToUpdate.setSubmissionId(id);
-				submissionToUpdate.setAssignment(assignment);
-				submissionToUpdate.setStudent(student);
+			//Assignment assignment = submissionToUpdate.getAssignment();
+			//Student student = submissionToUpdate.getStudent();
+			if ((grade > 0) && (grade <= 10)) {
+				/*
+				 * submissionToUpdate.setSubmissionId(id);
+				 * submissionToUpdate.setAssignment(assignment);
+				 * submissionToUpdate.setStudent(student);
+				 */
+				submissionToUpdate.setGrade(grade);
 				submissionRepository.save(submissionToUpdate);
 				return true;
 			}
+
 		}
 		return false;
 	}

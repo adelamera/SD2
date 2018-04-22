@@ -37,7 +37,6 @@ public class SubmissionController {
 		return submissionService.findAllSubmissionsOfStudent(studentId);
 	}
 
-
 	@GetMapping("/submissions/assignment/{id}")
 	public List<Integer> getAllGradesOfAssignment(@RequestParam Long assignmentId) {
 		List<SubmissionDto> submissions = submissionService.findAllSubmissionsOfAssignment(assignmentId);
@@ -57,7 +56,6 @@ public class SubmissionController {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(submission);
 		}
 	}
-	
 
 	@PostMapping("/submission/students/{id}/assignments/{id}")
 	public ResponseEntity<String> saveSubmission(@RequestParam Long studentId, @RequestParam Long assignmentId,
@@ -71,9 +69,8 @@ public class SubmissionController {
 	}
 
 	@PutMapping("/submission/{id}")
-	public ResponseEntity<String> gradeSubmission(@RequestParam Long submissionId,
-			@RequestBody SubmissionDto submission) {
-		boolean updated = submissionService.updateSubmission(submissionId, submission);
+	public ResponseEntity<String> gradeSubmission(@RequestParam Long submissionId, @RequestParam int grade) {
+		boolean updated = submissionService.updateSubmission(submissionId, grade);
 		if (updated == false) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The submission doesn't exist");
 		} else {

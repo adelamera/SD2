@@ -61,8 +61,10 @@ public class AssignmentService implements IAssignmentService {
 	public boolean updateAssignment(Long id, AssignmentDto assignment) {
 		Assignment assignmentToUpdate = assignmentRepository.findOne(id);
 		if (assignmentToUpdate != null) {
+			Lab lab = assignmentToUpdate.getLab();
 			assignmentToUpdate = map(assignment);
 			assignmentToUpdate.setAssignmentId(id);
+			assignmentToUpdate.setLab(lab);
 			assignmentRepository.save(assignmentToUpdate);
 			return true;
 		}

@@ -10,7 +10,7 @@ public interface IAttendenceService {
 
 	AttendenceDto getAttendenceById(Long id);
 
-	boolean saveAttendence(AttendenceDto Attendence, Long studentId, Long laboratoryId);
+	boolean saveAttendence(AttendenceDto Attendence);
 
 	boolean updateAttendence(Long id, AttendenceDto Attendence);
 

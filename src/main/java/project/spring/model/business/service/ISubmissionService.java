@@ -16,7 +16,7 @@ public interface ISubmissionService {
 
 	boolean saveSubmission(SubmissionDto submission, Long studentId, Long assignmentId);
 
-	boolean updateSubmission(Long id, SubmissionDto submission);
+	boolean updateSubmission(Long id, int grade);
 
 	boolean deleteSubmission(Long id);
 
