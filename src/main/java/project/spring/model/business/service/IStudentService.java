@@ -1,22 +1,23 @@
 package project.spring.model.business.service;
 
 import java.util.List;
-import project.spring.model.dal.dto.StudentDto;
+
+import project.spring.model.business.apimodel.StudentAPI;
 
 public interface IStudentService {
 
-	List<StudentDto> getAllStudents();
+	List<StudentAPI> getAllStudents();
 
-	StudentDto getStudentById(Long id);
+	StudentAPI getStudentById(Long id);
 
-	String saveStudent(StudentDto student);
+	String saveStudent(StudentAPI student);
 
-	boolean updateStudent(Long id, StudentDto student);
+	boolean updateStudent(Long id, StudentAPI student);
 
 	boolean deleteStudent(Long id);
 
-	boolean register(String username, StudentDto student);
+	boolean register(String username, StudentAPI student);
 	
-	StudentDto login(String username, String password);
+	StudentAPI login(String username, String password);
 
 }

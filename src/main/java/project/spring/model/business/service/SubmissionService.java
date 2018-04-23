@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import project.spring.model.business.model.Assignment;
-import project.spring.model.business.model.Student;
-import project.spring.model.business.model.Submission;
-import project.spring.model.dal.dto.SubmissionDto;
+import project.spring.model.business.apimodel.SubmissionAPI;
+import project.spring.model.dal.model.Assignment;
+import project.spring.model.dal.model.Student;
+import project.spring.model.dal.model.Submission;
 import project.spring.model.dal.repository.IAssignmentRepository;
 import project.spring.model.dal.repository.IStudentRepository;
 import project.spring.model.dal.repository.ISubmissionRepository;
@@ -32,8 +32,8 @@ public class SubmissionService implements ISubmissionService {
 	}
 
 	@Override
-	public List<SubmissionDto> findAllSubmissions() {
-		List<SubmissionDto> submissionsDto = new ArrayList<SubmissionDto>();
+	public List<SubmissionAPI> findAllSubmissions() {
+		List<SubmissionAPI> submissionsDto = new ArrayList<SubmissionAPI>();
 		List<Submission> submissions = new ArrayList<Submission>();
 		submissionRepository.findAll().forEach(submissions::add);
 		submissionsDto = submissions.stream().map(s -> this.mapDto(s)).collect(Collectors.toList());
@@ -41,8 +41,8 @@ public class SubmissionService implements ISubmissionService {
 	}
 
 	@Override
-	public List<SubmissionDto> findAllSubmissionsOfStudent(Long studentId) {
-		List<SubmissionDto> submissionsDto = new ArrayList<SubmissionDto>();
+	public List<SubmissionAPI> findAllSubmissionsOfStudent(Long studentId) {
+		List<SubmissionAPI> submissionsDto = new ArrayList<SubmissionAPI>();
 		List<Submission> submissions = new ArrayList<Submission>();
 		Student student = studentRepository.findOne(studentId);
 		if (student != null) {
@@ -54,8 +54,8 @@ public class SubmissionService implements ISubmissionService {
 	}
 
 	@Override
-	public List<SubmissionDto> findAllSubmissionsOfAssignment(Long assignmentId) {
-		List<SubmissionDto> submissionsDto = new ArrayList<SubmissionDto>();
+	public List<SubmissionAPI> findAllSubmissionsOfAssignment(Long assignmentId) {
+		List<SubmissionAPI> submissionsDto = new ArrayList<SubmissionAPI>();
 		List<Submission> submissions = new ArrayList<Submission>();
 		Assignment assignment = assignmentRepository.findOne(assignmentId);
 		if (assignment != null) {
@@ -68,7 +68,7 @@ public class SubmissionService implements ISubmissionService {
 	}
 
 	@Override
-	public SubmissionDto findSubmissionById(Long id) {
+	public SubmissionAPI findSubmissionById(Long id) {
 		Submission submission = submissionRepository.findOne(id);
 		if (submission != null) {
 			return mapDto(submission);
@@ -78,7 +78,7 @@ public class SubmissionService implements ISubmissionService {
 	}
 
 	@Override
-	public boolean saveSubmission(SubmissionDto submission, Long studentId, Long assignmentId) {
+	public boolean saveSubmission(SubmissionAPI submission, Long studentId, Long assignmentId) {
 		Submission submissionToSave = map(submission);
 		Student student = studentRepository.findOne(studentId);
 		Assignment assignment = assignmentRepository.findOne(assignmentId);
@@ -119,13 +119,13 @@ public class SubmissionService implements ISubmissionService {
 		return false;
 	}
 
-	public SubmissionDto mapDto(Submission submission) {
-		SubmissionDto submissionDto = new SubmissionDto(submission.getGrade(), submission.getLink(),
+	public SubmissionAPI mapDto(Submission submission) {
+		SubmissionAPI submissionDto = new SubmissionAPI(submission.getGrade(), submission.getLink(),
 				submission.getRemark());
 		return submissionDto;
 	}
 
-	public Submission map(SubmissionDto submission) {
+	public Submission map(SubmissionAPI submission) {
 		Submission sub = new Submission(submission.getGrade(), submission.getLink(), submission.getRemark());
 		return sub;
 	}

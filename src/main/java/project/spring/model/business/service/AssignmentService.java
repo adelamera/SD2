@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import project.spring.model.business.model.Assignment;
-import project.spring.model.business.model.Lab;
-import project.spring.model.dal.dto.AssignmentDto;
+import project.spring.model.business.apimodel.AssignmentAPI;
+import project.spring.model.dal.model.Assignment;
+import project.spring.model.dal.model.Lab;
 import project.spring.model.dal.repository.IAssignmentRepository;
 import project.spring.model.dal.repository.ILabRepository;
 
@@ -26,8 +26,8 @@ public class AssignmentService implements IAssignmentService {
 	}
 
 	@Override
-	public List<AssignmentDto> getAllAssignments() {
-		List<AssignmentDto> assignmentsDto = new ArrayList<AssignmentDto>();
+	public List<AssignmentAPI> getAllAssignments() {
+		List<AssignmentAPI> assignmentsDto = new ArrayList<AssignmentAPI>();
 		List<Assignment> assignments = new ArrayList<Assignment>();
 		assignmentRepository.findAll().forEach(assignments::add);
 		assignmentsDto = assignments.stream().map(s -> this.mapDto(s)).collect(Collectors.toList());
@@ -35,7 +35,7 @@ public class AssignmentService implements IAssignmentService {
 	}
 
 	@Override
-	public AssignmentDto getAssignmentById(Long id) {
+	public AssignmentAPI getAssignmentById(Long id) {
 		Assignment assignment = assignmentRepository.findOne(id);
 		if (assignment != null) {
 			return mapDto(assignment);
@@ -45,7 +45,7 @@ public class AssignmentService implements IAssignmentService {
 	}
 
 	@Override
-	public boolean saveAssignment(AssignmentDto assignment, Long laboratoryId) {
+	public boolean saveAssignment(AssignmentAPI assignment, Long laboratoryId) {
 		Assignment assignmentToSave = this.map(assignment);
 		Lab lab = laboratoryRepository.findOne(laboratoryId);
 		if (lab != null) {
@@ -58,7 +58,7 @@ public class AssignmentService implements IAssignmentService {
 	}
 
 	@Override
-	public boolean updateAssignment(Long id, AssignmentDto assignment) {
+	public boolean updateAssignment(Long id, AssignmentAPI assignment) {
 		Assignment assignmentToUpdate = assignmentRepository.findOne(id);
 		if (assignmentToUpdate != null) {
 			Lab lab = assignmentToUpdate.getLab();
@@ -84,8 +84,8 @@ public class AssignmentService implements IAssignmentService {
 	}
 
 	@Override
-	public List<AssignmentDto> getAllAssignmentsForLab(Long laboratoryId) {
-		List<AssignmentDto> assignmentsDto = new ArrayList<AssignmentDto>();
+	public List<AssignmentAPI> getAllAssignmentsForLab(Long laboratoryId) {
+		List<AssignmentAPI> assignmentsDto = new ArrayList<AssignmentAPI>();
 		List<Assignment> assignments = new ArrayList<Assignment>();
 		Lab lab = laboratoryRepository.findOne(laboratoryId);
 		if (lab != null) {
@@ -96,13 +96,13 @@ public class AssignmentService implements IAssignmentService {
 		return null;
 	}
 
-	public AssignmentDto mapDto(Assignment assignment) {
-		AssignmentDto assignmentDto = new AssignmentDto(assignment.getName(), assignment.getDeadline(),
+	public AssignmentAPI mapDto(Assignment assignment) {
+		AssignmentAPI assignmentDto = new AssignmentAPI(assignment.getName(), assignment.getDeadline(),
 				assignment.getDescription());
 		return assignmentDto;
 	}
 
-	public Assignment map(AssignmentDto assignment) {
+	public Assignment map(AssignmentAPI assignment) {
 		Assignment assign = new Assignment(assignment.getName(), assignment.getDeadline(), assignment.getDescription());
 		return assign;
 	}

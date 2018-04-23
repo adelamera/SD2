@@ -2,17 +2,17 @@ package project.spring.model.business.service;
 
 import java.util.List;
 
-import project.spring.model.dal.dto.AttendenceDto;
+import project.spring.model.business.apimodel.AttendenceAPI;
 
 public interface IAttendenceService {
 	
-	List<AttendenceDto> getAllAttendences();
+	List<AttendenceAPI> getAllAttendences();
 
-	AttendenceDto getAttendenceById(Long id);
+	AttendenceAPI getAttendenceById(Long id);
 
-	boolean saveAttendence(AttendenceDto Attendence);
+	boolean saveAttendence(AttendenceAPI Attendence);
 
-	boolean updateAttendence(Long id, AttendenceDto Attendence);
+	boolean updateAttendence(Long id, AttendenceAPI Attendence);
 
 	boolean deleteAttendence(Long id);
 

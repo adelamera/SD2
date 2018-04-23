@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import project.spring.model.business.apimodel.AttendenceAPI;
 import project.spring.model.business.service.AttendenceService;
-import project.spring.model.dal.dto.AttendenceDto;
 
 @RestController
 public class AttendenceController {
@@ -27,13 +27,13 @@ public class AttendenceController {
 	}
 
 	@GetMapping("/attendences")
-	public List<AttendenceDto> getAllAttendences() {
+	public List<AttendenceAPI> getAllAttendences() {
 		return attendenceService.getAllAttendences();
 	}
 
 	@GetMapping("/attendences/{id}")
-	public ResponseEntity<AttendenceDto> getAttendenceById(@RequestParam Long id) {
-		AttendenceDto attendence = attendenceService.getAttendenceById(id);
+	public ResponseEntity<AttendenceAPI> getAttendenceById(@RequestParam Long id) {
+		AttendenceAPI attendence = attendenceService.getAttendenceById(id);
 		if (attendence == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {
@@ -42,7 +42,7 @@ public class AttendenceController {
 	}
 
 	@PostMapping("/attendences")
-	public ResponseEntity<String> saveAttendence(@RequestBody AttendenceDto attendenceToSave) {
+	public ResponseEntity<String> saveAttendence(@RequestBody AttendenceAPI attendenceToSave) {
 		boolean saved = attendenceService.saveAttendence(attendenceToSave);
 		if (saved == false) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The attendence is invalid");
@@ -53,7 +53,7 @@ public class AttendenceController {
 
 	@PutMapping("/attendences/{id}")
 	public ResponseEntity<String> updateAttendence(@RequestParam Long id,
-			@RequestBody AttendenceDto attendenceToUpdate) {
+			@RequestBody AttendenceAPI attendenceToUpdate) {
 		boolean updated = attendenceService.updateAttendence(id, attendenceToUpdate);
 		if (updated == false) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The attendence doesn't exist");

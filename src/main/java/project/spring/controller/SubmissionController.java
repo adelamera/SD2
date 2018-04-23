@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import project.spring.model.business.apimodel.SubmissionAPI;
 import project.spring.model.business.service.SubmissionService;
-import project.spring.model.dal.dto.SubmissionDto;
 
 @RestController
 public class SubmissionController {
@@ -28,18 +28,18 @@ public class SubmissionController {
 	}
 
 	@GetMapping("/submissions")
-	public List<SubmissionDto> getAllSubmissions() {
+	public List<SubmissionAPI> getAllSubmissions() {
 		return submissionService.findAllSubmissions();
 	}
 
 	@GetMapping("/submissions/students/{id}")
-	public List<SubmissionDto> getAllSubmissionsOfStudent(@RequestParam Long studentId) {
+	public List<SubmissionAPI> getAllSubmissionsOfStudent(@RequestParam Long studentId) {
 		return submissionService.findAllSubmissionsOfStudent(studentId);
 	}
 
 	@GetMapping("/submissions/assignment/{id}")
 	public List<Integer> getAllGradesOfAssignment(@RequestParam Long assignmentId) {
-		List<SubmissionDto> submissions = submissionService.findAllSubmissionsOfAssignment(assignmentId);
+		List<SubmissionAPI> submissions = submissionService.findAllSubmissionsOfAssignment(assignmentId);
 		List<Integer> grades = new ArrayList<Integer>();
 		for (int i = 0; i < submissions.size(); i++) {
 			grades.add(submissions.get(i).getGrade());
@@ -48,8 +48,8 @@ public class SubmissionController {
 	}
 
 	@GetMapping("/submissions/{id}")
-	public ResponseEntity<SubmissionDto> getSubmissionById(@RequestParam Long id) {
-		SubmissionDto submission = submissionService.findSubmissionById(id);
+	public ResponseEntity<SubmissionAPI> getSubmissionById(@RequestParam Long id) {
+		SubmissionAPI submission = submissionService.findSubmissionById(id);
 		if (submission == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {
@@ -59,7 +59,7 @@ public class SubmissionController {
 
 	@PostMapping("/submission/students/{id}/assignments/{id}")
 	public ResponseEntity<String> saveSubmission(@RequestParam Long studentId, @RequestParam Long assignmentId,
-			@RequestBody SubmissionDto submission) {
+			@RequestBody SubmissionAPI submission) {
 		boolean saved = submissionService.saveSubmission(submission, studentId, assignmentId);
 		if (saved == false) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid submission");

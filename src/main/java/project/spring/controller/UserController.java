@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import project.spring.model.business.model.User;
+import project.spring.model.business.apimodel.UserDto;
 import project.spring.model.business.service.UserService;
-import project.spring.model.dal.dto.UserDto;
+import project.spring.model.dal.model.User;
 
 @RestController
 @RequestMapping("/user")

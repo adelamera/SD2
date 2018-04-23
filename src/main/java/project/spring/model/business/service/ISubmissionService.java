@@ -2,19 +2,19 @@ package project.spring.model.business.service;
 
 import java.util.List;
 
-import project.spring.model.dal.dto.SubmissionDto;
+import project.spring.model.business.apimodel.SubmissionAPI;
 
 public interface ISubmissionService {
 
-	List<SubmissionDto> findAllSubmissions();
+	List<SubmissionAPI> findAllSubmissions();
 
-	List<SubmissionDto> findAllSubmissionsOfStudent(Long studentId);
+	List<SubmissionAPI> findAllSubmissionsOfStudent(Long studentId);
 
-	List<SubmissionDto> findAllSubmissionsOfAssignment(Long assignmentId);
+	List<SubmissionAPI> findAllSubmissionsOfAssignment(Long assignmentId);
 
-	SubmissionDto findSubmissionById(Long id);
+	SubmissionAPI findSubmissionById(Long id);
 
-	boolean saveSubmission(SubmissionDto submission, Long studentId, Long assignmentId);
+	boolean saveSubmission(SubmissionAPI submission, Long studentId, Long assignmentId);
 
 	boolean updateSubmission(Long id, int grade);
 

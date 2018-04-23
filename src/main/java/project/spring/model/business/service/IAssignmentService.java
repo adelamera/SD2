@@ -2,20 +2,20 @@ package project.spring.model.business.service;
 
 import java.util.List;
 
-import project.spring.model.dal.dto.AssignmentDto;
+import project.spring.model.business.apimodel.AssignmentAPI;
 
 public interface IAssignmentService {
 
-	List<AssignmentDto> getAllAssignments();
+	List<AssignmentAPI> getAllAssignments();
 
-	AssignmentDto getAssignmentById(Long id);
+	AssignmentAPI getAssignmentById(Long id);
 
-	boolean saveAssignment(AssignmentDto Assignment, Long laboratoryId);
+	boolean saveAssignment(AssignmentAPI Assignment, Long laboratoryId);
 
-	boolean updateAssignment(Long id, AssignmentDto Assignment);
+	boolean updateAssignment(Long id, AssignmentAPI Assignment);
 
 	boolean deleteAssignment(Long id);
 
-	List<AssignmentDto> getAllAssignmentsForLab(Long laboratoryId);
+	List<AssignmentAPI> getAllAssignmentsForLab(Long laboratoryId);
 
 }

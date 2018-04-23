@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import project.spring.model.business.model.User;
-import project.spring.model.dal.dto.UserDto;
+import project.spring.model.business.apimodel.UserDto;
+import project.spring.model.dal.model.User;
 import project.spring.model.dal.repository.UserRepository;
 
 @Service

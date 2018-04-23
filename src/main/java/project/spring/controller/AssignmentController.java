@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import project.spring.model.business.apimodel.AssignmentAPI;
 import project.spring.model.business.service.AssignmentService;
-import project.spring.model.dal.dto.AssignmentDto;
 
 @RestController
 public class AssignmentController {
@@ -27,13 +27,13 @@ public class AssignmentController {
 	}
 
 	@GetMapping("/assignments")
-	public List<AssignmentDto> getAllAssignments() {
+	public List<AssignmentAPI> getAllAssignments() {
 		return assignmentService.getAllAssignments();
 	}
 
 	@GetMapping("/assignments/{id}")
-	public ResponseEntity<AssignmentDto> getAssignmentById(@RequestParam Long id) {
-		AssignmentDto assignment = assignmentService.getAssignmentById(id);
+	public ResponseEntity<AssignmentAPI> getAssignmentById(@RequestParam Long id) {
+		AssignmentAPI assignment = assignmentService.getAssignmentById(id);
 		if (assignment == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {
@@ -43,7 +43,7 @@ public class AssignmentController {
 
 	@PostMapping("/assignments")
 	public ResponseEntity<String> saveAssignment(@RequestParam Long laboratoryId,
-			@RequestBody AssignmentDto assignmentToSave) {
+			@RequestBody AssignmentAPI assignmentToSave) {
 		boolean saved = assignmentService.saveAssignment(assignmentToSave, laboratoryId);
 		if (saved == false) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The laboratoryId is invalid");
@@ -54,7 +54,7 @@ public class AssignmentController {
 
 	@PutMapping("/assignments/{id}")
 	public ResponseEntity<String> updateAssignment(@RequestParam Long id,
-			@RequestBody AssignmentDto assignmentToUpdate) {
+			@RequestBody AssignmentAPI assignmentToUpdate) {
 		boolean updated = assignmentService.updateAssignment(id, assignmentToUpdate);
 		if (updated == false) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The assignment doesn't exist");
@@ -74,7 +74,7 @@ public class AssignmentController {
 	}
 
 	@GetMapping("/assignments/laboratory/{id}")
-	public List<AssignmentDto> getAllAssignmentsForLab(@RequestParam Long laboratoryId) {
+	public List<AssignmentAPI> getAllAssignmentsForLab(@RequestParam Long laboratoryId) {
 		return assignmentService.getAllAssignmentsForLab(laboratoryId);
 	}
 

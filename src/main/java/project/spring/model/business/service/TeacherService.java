@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import project.spring.model.business.model.Teacher;
-import project.spring.model.dal.dto.TeacherDto;
+import project.spring.model.business.apimodel.TeacherAPI;
+import project.spring.model.dal.model.Teacher;
 import project.spring.model.dal.repository.ITeacherRepository;
 import project.spring.utils.PasswordEncryptor;
 
@@ -23,8 +23,8 @@ public class TeacherService implements ITeacherService {
 	}
 
 	@Override
-	public List<TeacherDto> getAllTeachers() {
-		List<TeacherDto> teachersDto = new ArrayList<TeacherDto>();
+	public List<TeacherAPI> getAllTeachers() {
+		List<TeacherAPI> teachersDto = new ArrayList<TeacherAPI>();
 		List<Teacher> teachers = new ArrayList<Teacher>();
 		teacherRepository.findAll().forEach(teachers::add);
 		teachersDto = teachers.stream().map(s -> this.mapDto(s)).collect(Collectors.toList());
@@ -32,7 +32,7 @@ public class TeacherService implements ITeacherService {
 	}
 
 	@Override
-	public TeacherDto getTeacherById(Long id) {
+	public TeacherAPI getTeacherById(Long id) {
 		Teacher teacher = teacherRepository.findOne(id);
 		if (teacher != null) {
 			return mapDto(teacher);
@@ -43,7 +43,7 @@ public class TeacherService implements ITeacherService {
 	}
 
 	@Override
-	public boolean saveTeacher(TeacherDto teacher) {
+	public boolean saveTeacher(TeacherAPI teacher) {
 		Teacher teacherToSave = this.map(teacher);
 		if (teacherRepository.findByUsername(teacherToSave.getUsername()) != null) {
 			return false;
@@ -55,7 +55,7 @@ public class TeacherService implements ITeacherService {
 	}
 
 	@Override
-	public boolean updateTeacher(Long id, TeacherDto teacher) {
+	public boolean updateTeacher(Long id, TeacherAPI teacher) {
 		Teacher teacherToUpdate = teacherRepository.findOne(id);
 		if (teacherToUpdate != null) {
 			teacherToUpdate = map(teacher);
@@ -81,7 +81,7 @@ public class TeacherService implements ITeacherService {
 	}
 
 	@Override
-	public TeacherDto login(String username, String password) {
+	public TeacherAPI login(String username, String password) {
 		Teacher teacher = teacherRepository.findByUsername(username);
 		if (teacher != null) {
 			if (teacher.getPassword().equals(PasswordEncryptor.setPasswordEncrypt(password))) {
@@ -91,12 +91,12 @@ public class TeacherService implements ITeacherService {
 		return null;
 	}
 
-	public TeacherDto mapDto(Teacher teacher) {
-		TeacherDto teacherDto = new TeacherDto(teacher.getUsername(), teacher.getPassword());
+	public TeacherAPI mapDto(Teacher teacher) {
+		TeacherAPI teacherDto = new TeacherAPI(teacher.getUsername(), teacher.getPassword());
 		return teacherDto;
 	}
 
-	public Teacher map(TeacherDto teacher) {
+	public Teacher map(TeacherAPI teacher) {
 		Teacher tech = new Teacher(teacher.getUsername(), teacher.getPassword());
 		return tech;
 	}

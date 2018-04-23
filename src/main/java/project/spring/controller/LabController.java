@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import project.spring.model.business.apimodel.LabAPI;
 import project.spring.model.business.service.LabService;
-import project.spring.model.dal.dto.LabDto;
 
 @RestController
 public class LabController {
@@ -27,18 +27,18 @@ public class LabController {
 	}
 
 	@GetMapping("/labs")
-	public List<LabDto> getAllLabs() {
+	public List<LabAPI> getAllLabs() {
 		return labService.getAllLabs();
 	}
 
 	@GetMapping("/labs/{keyword}")
-	public List<LabDto> getAllLabsByKeyword(@RequestParam String keyword) {
+	public List<LabAPI> getAllLabsByKeyword(@RequestParam String keyword) {
 		return labService.getAllLabsByKeyword(keyword);
 	}
 
 	@GetMapping("/labs/{id}")
-	public ResponseEntity<LabDto> getLabById(@RequestParam Long id) {
-		LabDto lab = labService.getLabById(id);
+	public ResponseEntity<LabAPI> getLabById(@RequestParam Long id) {
+		LabAPI lab = labService.getLabById(id);
 		if (lab == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {
@@ -47,7 +47,7 @@ public class LabController {
 	}
 
 	@PostMapping("/labs")
-	public ResponseEntity<String> saveLab(@RequestBody LabDto labToSave) {
+	public ResponseEntity<String> saveLab(@RequestBody LabAPI labToSave) {
 		boolean saved = labService.saveLab(labToSave);
 		if (saved == false) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The lab number is invalid");
@@ -57,7 +57,7 @@ public class LabController {
 	}
 
 	@PutMapping("/labs/{id}")
-	public ResponseEntity<String> updateLab(@RequestParam Long id, @RequestBody LabDto labToUpdate) {
+	public ResponseEntity<String> updateLab(@RequestParam Long id, @RequestBody LabAPI labToUpdate) {
 		boolean updated = labService.updateLab(id, labToUpdate);
 		if (updated == false) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The lab number is invalid");

@@ -2,20 +2,20 @@ package project.spring.model.business.service;
 
 import java.util.List;
 
-import project.spring.model.dal.dto.LabDto;
+import project.spring.model.business.apimodel.LabAPI;
 
 public interface ILabService {
 
-	List<LabDto> getAllLabs();
+	List<LabAPI> getAllLabs();
 
-	LabDto getLabById(Long id);
+	LabAPI getLabById(Long id);
 
-	boolean saveLab(LabDto lab);
+	boolean saveLab(LabAPI lab);
 
-	boolean updateLab(Long id, LabDto Lab);
+	boolean updateLab(Long id, LabAPI Lab);
 
 	boolean deleteLab(Long id);
 	
-	List<LabDto> getAllLabsByKeyword(String keyword);
+	List<LabAPI> getAllLabsByKeyword(String keyword);
 
 }

@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import project.spring.model.business.model.Attendence;
-import project.spring.model.business.model.Lab;
-import project.spring.model.business.model.Student;
-import project.spring.model.dal.dto.AttendenceDto;
+import project.spring.model.business.apimodel.AttendenceAPI;
+import project.spring.model.dal.model.Attendence;
+import project.spring.model.dal.model.Lab;
+import project.spring.model.dal.model.Student;
 import project.spring.model.dal.repository.IAttendenceRepository;
 import project.spring.model.dal.repository.ILabRepository;
 import project.spring.model.dal.repository.IStudentRepository;
@@ -31,8 +31,8 @@ public class AttendenceService implements IAttendenceService {
 	}
 
 	@Override
-	public List<AttendenceDto> getAllAttendences() {
-		List<AttendenceDto> attendencesDto = new ArrayList<AttendenceDto>();
+	public List<AttendenceAPI> getAllAttendences() {
+		List<AttendenceAPI> attendencesDto = new ArrayList<AttendenceAPI>();
 		List<Attendence> attendences = new ArrayList<Attendence>();
 		attendenceRepository.findAll().forEach(attendences::add);
 		attendencesDto = attendences.stream().map(s -> this.mapDto(s)).collect(Collectors.toList());
@@ -40,7 +40,7 @@ public class AttendenceService implements IAttendenceService {
 	}
 
 	@Override
-	public AttendenceDto getAttendenceById(Long id) {
+	public AttendenceAPI getAttendenceById(Long id) {
 		Attendence attendence = attendenceRepository.findOne(id);
 		if (attendence != null) {
 			return mapDto(attendence);
@@ -51,7 +51,7 @@ public class AttendenceService implements IAttendenceService {
 	}
 
 	@Override
-	public boolean saveAttendence(AttendenceDto attendence) {
+	public boolean saveAttendence(AttendenceAPI attendence) {
 		Attendence attendenceToSave = this.map(attendence);
 		Student student = studentRepository.findOne(attendence.getStudentId());
 		Lab lab = labRepository.findOne(attendence.getLaboratoryId());
@@ -70,7 +70,7 @@ public class AttendenceService implements IAttendenceService {
 	}
 
 	@Override
-	public boolean updateAttendence(Long id, AttendenceDto attendence) {
+	public boolean updateAttendence(Long id, AttendenceAPI attendence) {
 		Attendence attendenceToUpdate = attendenceRepository.findOne(id);
 		if (attendenceToUpdate != null) {
 			Student student = attendenceToUpdate.getStudent();
@@ -97,14 +97,14 @@ public class AttendenceService implements IAttendenceService {
 
 	}
 
-	public AttendenceDto mapDto(Attendence attendence) {
-		AttendenceDto attendenceDto = new AttendenceDto();
+	public AttendenceAPI mapDto(Attendence attendence) {
+		AttendenceAPI attendenceDto = new AttendenceAPI();
 		attendenceDto.setLaboratoryId(attendence.getLaboratory().getLaboratoryId());
 		attendenceDto.setStudentId(attendence.getStudent().getStudentId());
 		return attendenceDto;
 	}
 
-	public Attendence map(AttendenceDto attendence) {
+	public Attendence map(AttendenceAPI attendence) {
 		Attendence att = new Attendence();
 		return att;
 	}

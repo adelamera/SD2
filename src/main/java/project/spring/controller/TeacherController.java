@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import project.spring.model.business.apimodel.TeacherAPI;
 import project.spring.model.business.service.TeacherService;
-import project.spring.model.dal.dto.TeacherDto;
 
 @RestController
 public class TeacherController {
@@ -27,13 +27,13 @@ public class TeacherController {
 	}
 
 	@GetMapping("/teachers")
-	public List<TeacherDto> getAllTeachers() {
+	public List<TeacherAPI> getAllTeachers() {
 		return teacherService.getAllTeachers();
 	}
 
 	@GetMapping("/teachers/{id}")
-	public ResponseEntity<TeacherDto> getTeacherById(@RequestParam Long id) {
-		TeacherDto teacher = teacherService.getTeacherById(id);
+	public ResponseEntity<TeacherAPI> getTeacherById(@RequestParam Long id) {
+		TeacherAPI teacher = teacherService.getTeacherById(id);
 		if (teacher == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {
@@ -42,7 +42,7 @@ public class TeacherController {
 	}
 
 	@PostMapping("/teachers")
-	public ResponseEntity<String> saveTeacher(@RequestBody TeacherDto teacherToSave) {
+	public ResponseEntity<String> saveTeacher(@RequestBody TeacherAPI teacherToSave) {
 		boolean saved = teacherService.saveTeacher(teacherToSave);
 		if (saved == false) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The teacher already exists");
@@ -53,7 +53,7 @@ public class TeacherController {
 	}
 
 	@PutMapping("/teachers/{id}")
-	public ResponseEntity<String> updateTeacher(@RequestParam Long id, @RequestBody TeacherDto teacherToUpdate) {
+	public ResponseEntity<String> updateTeacher(@RequestParam Long id, @RequestBody TeacherAPI teacherToUpdate) {
 		boolean updated = teacherService.updateTeacher(id, teacherToUpdate);
 		if (updated) {
 			return ResponseEntity.status(HttpStatus.OK).body("The teacher was updated");
@@ -73,8 +73,8 @@ public class TeacherController {
 	}
 
 	@GetMapping("/teachers/login")
-	public ResponseEntity<TeacherDto> login(@RequestParam String username, @RequestParam String password) {
-		TeacherDto teacher = teacherService.login(username, password);
+	public ResponseEntity<TeacherAPI> login(@RequestParam String username, @RequestParam String password) {
+		TeacherAPI teacher = teacherService.login(username, password);
 		if (teacher == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} else {

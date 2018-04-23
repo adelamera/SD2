@@ -2,20 +2,20 @@ package project.spring.model.business.service;
 
 import java.util.List;
 
-import project.spring.model.dal.dto.TeacherDto;
+import project.spring.model.business.apimodel.TeacherAPI;
 
 public interface ITeacherService {
 
-	List<TeacherDto> getAllTeachers();
+	List<TeacherAPI> getAllTeachers();
 
-	TeacherDto getTeacherById(Long id);
+	TeacherAPI getTeacherById(Long id);
 
-	boolean saveTeacher(TeacherDto teacher);
+	boolean saveTeacher(TeacherAPI teacher);
 
-	boolean updateTeacher(Long id, TeacherDto teacher);
+	boolean updateTeacher(Long id, TeacherAPI teacher);
 
 	boolean deleteTeacher(Long id);
 
-	TeacherDto login(String username, String password);
+	TeacherAPI login(String username, String password);
 
 }
