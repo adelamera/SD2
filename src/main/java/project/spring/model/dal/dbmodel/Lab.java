@@ -1,13 +1,16 @@
-package project.spring.model.dal.model;
+package project.spring.model.dal.dbmodel;
 
 import java.sql.Date;
-
+//import java.util.Set;
+//import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+//import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "lab")
@@ -32,6 +35,12 @@ public class Lab {
 
 	@Column(name = "description")
 	private String description;
+	
+	/*@OneToMany(mappedBy="lab", cascade = CascadeType.ALL)
+    private Set<Assignment> assignments;
+
+    @OneToMany(mappedBy="lab", cascade = CascadeType.ALL)
+    private Set<Attendence> attendence;*/
 
 	public Lab() {
 

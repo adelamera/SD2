@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.spring.model.business.apimodel.AttendenceAPI;
-import project.spring.model.dal.model.Attendence;
-import project.spring.model.dal.model.Lab;
-import project.spring.model.dal.model.Student;
+import project.spring.model.dal.dbmodel.Attendence;
+import project.spring.model.dal.dbmodel.Lab;
+import project.spring.model.dal.dbmodel.Student;
 import project.spring.model.dal.repository.IAttendenceRepository;
 import project.spring.model.dal.repository.ILabRepository;
 import project.spring.model.dal.repository.IStudentRepository;

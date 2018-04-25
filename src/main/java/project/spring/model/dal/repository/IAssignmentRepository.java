@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import project.spring.model.dal.model.Assignment;
+import project.spring.model.dal.dbmodel.Assignment;
 
 @Repository
 @Transactional

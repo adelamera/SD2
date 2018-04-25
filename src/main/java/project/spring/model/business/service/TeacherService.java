@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.spring.model.business.apimodel.TeacherAPI;
-import project.spring.model.dal.model.Teacher;
+import project.spring.model.dal.dbmodel.Teacher;
 import project.spring.model.dal.repository.ITeacherRepository;
 import project.spring.utils.PasswordEncryptor;
 

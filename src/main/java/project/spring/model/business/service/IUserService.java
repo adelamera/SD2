@@ -3,7 +3,7 @@ package project.spring.model.business.service;
 import java.util.List;
 
 import project.spring.model.business.apimodel.UserDto;
-import project.spring.model.dal.model.User;
+import project.spring.model.dal.dbmodel.User;
 
 public interface IUserService {
 

@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.spring.model.business.apimodel.SubmissionAPI;
-import project.spring.model.dal.model.Assignment;
-import project.spring.model.dal.model.Student;
-import project.spring.model.dal.model.Submission;
+import project.spring.model.dal.dbmodel.Assignment;
+import project.spring.model.dal.dbmodel.Student;
+import project.spring.model.dal.dbmodel.Submission;
 import project.spring.model.dal.repository.IAssignmentRepository;
 import project.spring.model.dal.repository.IStudentRepository;
 import project.spring.model.dal.repository.ISubmissionRepository;

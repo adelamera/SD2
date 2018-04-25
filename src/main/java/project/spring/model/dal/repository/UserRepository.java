@@ -5,7 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import project.spring.model.dal.model.User;
+import project.spring.model.dal.dbmodel.User;
 
 @Repository
 @Transactional

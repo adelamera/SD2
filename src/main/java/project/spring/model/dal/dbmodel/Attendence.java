@@ -1,4 +1,4 @@
-package project.spring.model.dal.model;
+package project.spring.model.dal.dbmodel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

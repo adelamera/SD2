@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.spring.model.business.apimodel.AssignmentAPI;
-import project.spring.model.dal.model.Assignment;
-import project.spring.model.dal.model.Lab;
+import project.spring.model.dal.dbmodel.Assignment;
+import project.spring.model.dal.dbmodel.Lab;
 import project.spring.model.dal.repository.IAssignmentRepository;
 import project.spring.model.dal.repository.ILabRepository;
 

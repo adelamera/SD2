@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import project.spring.model.business.apimodel.UserDto;
 import project.spring.model.business.service.UserService;
-import project.spring.model.dal.model.User;
+import project.spring.model.dal.dbmodel.User;
 
 @RestController
 @RequestMapping("/user")

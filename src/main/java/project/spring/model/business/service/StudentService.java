@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import project.spring.model.business.apimodel.StudentAPI;
-import project.spring.model.dal.model.Student;
+import project.spring.model.dal.dbmodel.Student;
 import project.spring.model.dal.repository.IStudentRepository;
 import project.spring.utils.EmailValidator;
 import project.spring.utils.PasswordEncryptor;
