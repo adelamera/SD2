@@ -31,7 +31,7 @@ public class AttendenceController {
 		return attendenceService.getAllAttendences();
 	}
 
-	@GetMapping("/attendences/{id}")
+	@GetMapping("/attendences/id")
 	public ResponseEntity<AttendenceAPI> getAttendenceById(@RequestParam Long id) {
 		AttendenceAPI attendence = attendenceService.getAttendenceById(id);
 		if (attendence == null) {
@@ -51,7 +51,7 @@ public class AttendenceController {
 		}
 	}
 
-	@PutMapping("/attendences/{id}")
+	@PutMapping("/attendences/id")
 	public ResponseEntity<String> updateAttendence(@RequestParam Long id,
 			@RequestBody AttendenceAPI attendenceToUpdate) {
 		boolean updated = attendenceService.updateAttendence(id, attendenceToUpdate);
@@ -62,7 +62,7 @@ public class AttendenceController {
 		}
 	}
 
-	@DeleteMapping("/attendences/{id}")
+	@DeleteMapping("/attendences/id")
 	public ResponseEntity<String> deleteAttendence(@RequestParam Long id) {
 		boolean deleted = attendenceService.deleteAttendence(id);
 		if (deleted == false) {

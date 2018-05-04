@@ -35,5 +35,10 @@ public class TeacherAPI implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String toString() {
+		return "Teacher" + System.lineSeparator() + "username = " + this.username;
+	}
+
 
 }

@@ -47,7 +47,10 @@ public class SubmissionAPI implements Serializable {
 	}
 
 	public String toString() {
-		return "Submission" + "student='" + '\'' + ", link='" + this.link + '\'' + ", remark='" + this.remark;
+		return "Submission" + System.lineSeparator() + 
+				"grade = " + this.grade + System.lineSeparator() + 
+				"link = " + this.link + System.lineSeparator() + 
+				"remark = " + this.remark;
 	}
 
 }

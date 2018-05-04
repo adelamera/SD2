@@ -31,7 +31,7 @@ public class AssignmentController {
 		return assignmentService.getAllAssignments();
 	}
 
-	@GetMapping("/assignments/{id}")
+	@GetMapping("/assignments/id")
 	public ResponseEntity<AssignmentAPI> getAssignmentById(@RequestParam Long id) {
 		AssignmentAPI assignment = assignmentService.getAssignmentById(id);
 		if (assignment == null) {
@@ -52,7 +52,7 @@ public class AssignmentController {
 		}
 	}
 
-	@PutMapping("/assignments/{id}")
+	@PutMapping("/assignments/id")
 	public ResponseEntity<String> updateAssignment(@RequestParam Long id,
 			@RequestBody AssignmentAPI assignmentToUpdate) {
 		boolean updated = assignmentService.updateAssignment(id, assignmentToUpdate);
@@ -63,7 +63,7 @@ public class AssignmentController {
 		}
 	}
 
-	@DeleteMapping("/assignments/{id}")
+	@DeleteMapping("/assignments/id")
 	public ResponseEntity<String> deleteAssignment(@RequestParam Long id) {
 		boolean deleted = assignmentService.deleteAssignment(id);
 		if (deleted == false) {
@@ -73,7 +73,7 @@ public class AssignmentController {
 		}
 	}
 
-	@GetMapping("/assignments/laboratory/{id}")
+	@GetMapping("/assignments/laboratory/id")
 	public List<AssignmentAPI> getAllAssignmentsForLab(@RequestParam Long laboratoryId) {
 		return assignmentService.getAllAssignmentsForLab(laboratoryId);
 	}

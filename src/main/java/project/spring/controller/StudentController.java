@@ -31,7 +31,7 @@ public class StudentController {
 		return studentService.getAllStudents();
 	}
 
-	@GetMapping("/students/{id}")
+	@GetMapping("/students/id")
 	public ResponseEntity<StudentAPI> getStudentById(@RequestParam Long id) {
 		StudentAPI student = studentService.getStudentById(id);
 		if (student == null) {
@@ -61,7 +61,7 @@ public class StudentController {
 		}
 	}
 
-	@PutMapping("/students/{id}")
+	@PutMapping("/students/id")
 	public ResponseEntity<String> updateStudent(@RequestParam Long id, @RequestBody StudentAPI studentToUpdate) {
 		boolean updated = studentService.updateStudent(id, studentToUpdate);
 		if (updated) {
@@ -71,7 +71,7 @@ public class StudentController {
 		}
 	}
 
-	@PutMapping("/students/{username}")
+	@PutMapping("/students/username")
 	public ResponseEntity<String> register(@RequestParam String username, @RequestBody StudentAPI studentToUpdate) {
 		boolean registered = studentService.register(username, studentToUpdate);
 		if (registered) {
@@ -81,7 +81,7 @@ public class StudentController {
 		}
 	}
 
-	@DeleteMapping("/students/{id}")
+	@DeleteMapping("/students/id")
 	public ResponseEntity<String> deleteStudent(@RequestParam Long id) {
 		boolean deleted = studentService.deleteStudent(id);
 		if (deleted) {

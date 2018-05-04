@@ -48,8 +48,9 @@ public class AssignmentAPI implements Serializable {
 	}
 
 	public String toString() {
-		return "Assignment" + "name='" + this.name + '\'' + ", deadline='" + this.deadline + '\'' + ", description="
-				+ this.description;
+		return "Assignment" + System.lineSeparator() + 
+				"name = " + this.name + System.lineSeparator() + 
+				"deadline = " + this.deadline + System.lineSeparator() +
+				"description = " + this.description;
 	}
-
 }

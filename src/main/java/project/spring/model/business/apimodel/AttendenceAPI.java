@@ -31,5 +31,11 @@ public class AttendenceAPI implements Serializable {
 		this.laboratoryId = laboratoryId;
 	}
 	
+	public String toString() {
+		return "Attendence" + System.lineSeparator() + 
+				"student id = " + this.studentId + System.lineSeparator() +
+				"laboratory id = " + this.laboratoryId;
+	}
+	
 
 }

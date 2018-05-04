@@ -31,7 +31,7 @@ public class TeacherController {
 		return teacherService.getAllTeachers();
 	}
 
-	@GetMapping("/teachers/{id}")
+	@GetMapping("/teachers/id")
 	public ResponseEntity<TeacherAPI> getTeacherById(@RequestParam Long id) {
 		TeacherAPI teacher = teacherService.getTeacherById(id);
 		if (teacher == null) {
@@ -52,7 +52,7 @@ public class TeacherController {
 
 	}
 
-	@PutMapping("/teachers/{id}")
+	@PutMapping("/teachers/id")
 	public ResponseEntity<String> updateTeacher(@RequestParam Long id, @RequestBody TeacherAPI teacherToUpdate) {
 		boolean updated = teacherService.updateTeacher(id, teacherToUpdate);
 		if (updated) {
@@ -62,7 +62,7 @@ public class TeacherController {
 		}
 	}
 
-	@DeleteMapping("/teachers/{id}")
+	@DeleteMapping("/teachers/id")
 	public ResponseEntity<String> deleteTeacher(@RequestParam Long id) {
 		boolean deleted = teacherService.deleteTeacher(id);
 		if (deleted) {

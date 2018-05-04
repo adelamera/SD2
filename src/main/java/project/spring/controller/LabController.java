@@ -31,12 +31,12 @@ public class LabController {
 		return labService.getAllLabs();
 	}
 
-	@GetMapping("/labs/{keyword}")
+	@GetMapping("/labs/keyword")
 	public List<LabAPI> getAllLabsByKeyword(@RequestParam String keyword) {
 		return labService.getAllLabsByKeyword(keyword);
 	}
 
-	@GetMapping("/labs/{id}")
+	@GetMapping("/labs/id")
 	public ResponseEntity<LabAPI> getLabById(@RequestParam Long id) {
 		LabAPI lab = labService.getLabById(id);
 		if (lab == null) {
@@ -56,7 +56,7 @@ public class LabController {
 		}
 	}
 
-	@PutMapping("/labs/{id}")
+	@PutMapping("/labs/id")
 	public ResponseEntity<String> updateLab(@RequestParam Long id, @RequestBody LabAPI labToUpdate) {
 		boolean updated = labService.updateLab(id, labToUpdate);
 		if (updated == false) {
@@ -66,7 +66,7 @@ public class LabController {
 		}
 	}
 
-	@DeleteMapping("/labs/{id}")
+	@DeleteMapping("/labs/id")
 	public ResponseEntity<String> deleteLab(@RequestParam Long id) {
 		boolean deleted = labService.deleteLab(id);
 		if (deleted == false) {

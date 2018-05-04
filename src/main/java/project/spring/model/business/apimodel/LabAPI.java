@@ -71,8 +71,12 @@ public class LabAPI implements Serializable {
 	}
 
 	public String toString() {
-		return "Laboratory" + "number='" + this.laboratoryNr + '\'' + ", date='" + this.date + '\'' + ", title="
-				+ this.title + '\'' + ", curricula='" + this.curricula + '\'' + ", description=" + this.description;
+		return "Laboratory" + System.lineSeparator() +
+				"number = " + this.laboratoryNr + System.lineSeparator() + 
+				"date = " + this.date + System.lineSeparator() + 
+				"title = " + this.title + System.lineSeparator() +
+				"curricula = " + this.curricula + System.lineSeparator() +
+				"description = " + this.description;
 	}
 
 }

@@ -77,8 +77,11 @@ public class StudentAPI implements Serializable {
 	}
 
 	public String toString() {
-		return "Student" + "name='" + this.name + '\'' + ", email='" + this.email + '\'' + ", group=" + this.groupNr
-				+ '\'' + ", hobby='" + this.hobby;
+		return "Student" + System.lineSeparator() + 
+				"name = " + this.name + System.lineSeparator() + 
+				"email = " + this.email + System.lineSeparator() + 
+				"group = " + this.groupNr + System.lineSeparator() +
+				"hobby = " + this.hobby;
 	}
 
 }

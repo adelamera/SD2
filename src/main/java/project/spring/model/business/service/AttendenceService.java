@@ -73,8 +73,8 @@ public class AttendenceService implements IAttendenceService {
 	public boolean updateAttendence(Long id, AttendenceAPI attendence) {
 		Attendence attendenceToUpdate = attendenceRepository.findOne(id);
 		if (attendenceToUpdate != null) {
-			Student student = attendenceToUpdate.getStudent();
-			Lab lab = attendenceToUpdate.getLaboratory();
+			Student student  = studentRepository.findOne(attendence.getStudentId());
+			Lab lab = labRepository.findOne(attendence.getLaboratoryId());
 			attendenceToUpdate = map(attendence);
 			attendenceToUpdate.setAttendenceId(id);
 			attendenceToUpdate.setLaboratory(lab);

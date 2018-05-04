@@ -32,12 +32,12 @@ public class SubmissionController {
 		return submissionService.findAllSubmissions();
 	}
 
-	@GetMapping("/submissions/students/{id}")
+	@GetMapping("/submissions/students/id")
 	public List<SubmissionAPI> getAllSubmissionsOfStudent(@RequestParam Long studentId) {
 		return submissionService.findAllSubmissionsOfStudent(studentId);
 	}
 
-	@GetMapping("/submissions/assignment/{id}")
+	@GetMapping("/submissions/assignment/id")
 	public List<Integer> getAllGradesOfAssignment(@RequestParam Long assignmentId) {
 		List<SubmissionAPI> submissions = submissionService.findAllSubmissionsOfAssignment(assignmentId);
 		List<Integer> grades = new ArrayList<Integer>();
@@ -47,7 +47,7 @@ public class SubmissionController {
 		return grades;
 	}
 
-	@GetMapping("/submissions/{id}")
+	@GetMapping("/submissions/id")
 	public ResponseEntity<SubmissionAPI> getSubmissionById(@RequestParam Long id) {
 		SubmissionAPI submission = submissionService.findSubmissionById(id);
 		if (submission == null) {
@@ -57,7 +57,7 @@ public class SubmissionController {
 		}
 	}
 
-	@PostMapping("/submission/students/{id}/assignments/{id}")
+	@PostMapping("/submission/students/id/assignments/id")
 	public ResponseEntity<String> saveSubmission(@RequestParam Long studentId, @RequestParam Long assignmentId,
 			@RequestBody SubmissionAPI submission) {
 		boolean saved = submissionService.saveSubmission(submission, studentId, assignmentId);
@@ -68,7 +68,7 @@ public class SubmissionController {
 		}
 	}
 
-	@PutMapping("/submission/{id}")
+	@PutMapping("/submission/id")
 	public ResponseEntity<String> gradeSubmission(@RequestParam Long submissionId, @RequestParam int grade) {
 		boolean updated = submissionService.updateSubmission(submissionId, grade);
 		if (updated == false) {
@@ -78,7 +78,7 @@ public class SubmissionController {
 		}
 	}
 
-	@DeleteMapping("/submission/{id}")
+	@DeleteMapping("/submission/id")
 	public ResponseEntity<String> deleteSubmission(@RequestParam Long id) {
 		boolean deleted = submissionService.deleteSubmission(id);
 		if (deleted == false) {
