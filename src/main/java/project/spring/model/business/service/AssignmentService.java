@@ -48,7 +48,8 @@ public class AssignmentService implements IAssignmentService {
 	public boolean saveAssignment(AssignmentAPI assignment, Long laboratoryId) {
 		Assignment assignmentToSave = this.map(assignment);
 		Lab lab = laboratoryRepository.findOne(laboratoryId);
-		if (lab != null) {
+		Assignment a = assignmentRepository.findByName(assignment.getName());
+		if ((lab != null) && (a == null)) {
 			assignmentToSave.setLab(lab);
 			assignmentRepository.save(assignmentToSave);
 			return true;
@@ -95,6 +96,16 @@ public class AssignmentService implements IAssignmentService {
 		}
 		return null;
 	}
+	
+	@Override
+	public Long getByName(String name) {
+		if (assignmentRepository.findByName(name) != null) {
+			return assignmentRepository.findByName(name).getAssignmentId();
+		} else {
+			return Long.valueOf(0);
+		}
+		
+	}
 
 	public AssignmentAPI mapDto(Assignment assignment) {
 		AssignmentAPI assignmentDto = new AssignmentAPI(assignment.getName(), assignment.getDeadline(),
@@ -106,5 +117,7 @@ public class AssignmentService implements IAssignmentService {
 		Assignment assign = new Assignment(assignment.getName(), assignment.getDeadline(), assignment.getDescription());
 		return assign;
 	}
+
+	
 
 }

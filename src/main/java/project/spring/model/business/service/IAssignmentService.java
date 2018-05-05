@@ -17,5 +17,7 @@ public interface IAssignmentService {
 	boolean deleteAssignment(Long id);
 
 	List<AssignmentAPI> getAllAssignmentsForLab(Long laboratoryId);
+	
+	Long getByName(String name);
 
 }

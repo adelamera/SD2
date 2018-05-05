@@ -40,13 +40,18 @@ public class AssignmentController {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(assignment);
 		}
 	}
+	
+	@GetMapping("/assignments/name")
+	public Long getByName(@RequestParam String name) {
+		return assignmentService.getByName(name);
+	}
 
 	@PostMapping("/assignments")
 	public ResponseEntity<String> saveAssignment(@RequestParam Long laboratoryId,
 			@RequestBody AssignmentAPI assignmentToSave) {
 		boolean saved = assignmentService.saveAssignment(assignmentToSave, laboratoryId);
 		if (saved == false) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The laboratoryId is invalid");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid assignment");
 		} else {
 			return ResponseEntity.status(HttpStatus.CREATED).body("The assignment was successfully saved");
 		}

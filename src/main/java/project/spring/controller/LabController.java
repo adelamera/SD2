@@ -35,6 +35,11 @@ public class LabController {
 	public List<LabAPI> getAllLabsByKeyword(@RequestParam String keyword) {
 		return labService.getAllLabsByKeyword(keyword);
 	}
+	
+	@GetMapping("/labs/laboratoryNr")
+	public Long getLabByNr(@RequestParam int laboratoryNr) {
+		return labService.getByLabNumber(laboratoryNr);
+	}
 
 	@GetMapping("/labs/id")
 	public ResponseEntity<LabAPI> getLabById(@RequestParam Long id) {

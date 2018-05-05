@@ -14,5 +14,7 @@ import project.spring.model.dal.dbmodel.Assignment;
 public interface IAssignmentRepository extends CrudRepository<Assignment, Long> {
 
 	List<Assignment> findByLabLaboratoryId(Long laboratoryId);
+	
+	Assignment findByName(String name);
 
 }

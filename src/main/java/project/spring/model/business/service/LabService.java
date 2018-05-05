@@ -92,6 +92,16 @@ public class LabService implements ILabService {
 		labsDto = labs.stream().map(s -> this.mapDto(s)).collect(Collectors.toList());
 		return labsDto;
 	}
+	
+	@Override
+	public Long getByLabNumber(int laboratoryNr) {
+		if (labRepository.findByLaboratoryNr(laboratoryNr) != null) {
+			return labRepository.findByLaboratoryNr(laboratoryNr).getLaboratoryId();
+		} else {
+			return Long.valueOf(0);
+		}
+	}
+
 
 	public LabAPI mapDto(Lab lab) {
 		LabAPI labDto = new LabAPI(lab.getLaboratoryNr(), lab.getDate(), lab.getTitle(), lab.getCurricula(),
@@ -105,4 +115,5 @@ public class LabService implements ILabService {
 		return laboratory;
 	}
 
+	
 }

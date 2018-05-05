@@ -17,5 +17,7 @@ public interface ILabService {
 	boolean deleteLab(Long id);
 	
 	List<LabAPI> getAllLabsByKeyword(String keyword);
+	
+	Long getByLabNumber(int laboratoryNr);
 
 }
