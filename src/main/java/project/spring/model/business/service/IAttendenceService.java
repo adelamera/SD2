@@ -5,8 +5,10 @@ import java.util.List;
 import project.spring.model.business.apimodel.AttendenceAPI;
 
 public interface IAttendenceService {
-	
+
 	List<AttendenceAPI> getAllAttendences();
+
+	List<AttendenceAPI> getByStudentId(Long studentId);
 
 	AttendenceAPI getAttendenceById(Long id);
 

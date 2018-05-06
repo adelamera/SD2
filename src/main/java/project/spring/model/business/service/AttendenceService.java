@@ -73,7 +73,7 @@ public class AttendenceService implements IAttendenceService {
 	public boolean updateAttendence(Long id, AttendenceAPI attendence) {
 		Attendence attendenceToUpdate = attendenceRepository.findOne(id);
 		if (attendenceToUpdate != null) {
-			Student student  = studentRepository.findOne(attendence.getStudentId());
+			Student student = studentRepository.findOne(attendence.getStudentId());
 			Lab lab = labRepository.findOne(attendence.getLaboratoryId());
 			attendenceToUpdate = map(attendence);
 			attendenceToUpdate.setAttendenceId(id);
@@ -107,6 +107,15 @@ public class AttendenceService implements IAttendenceService {
 	public Attendence map(AttendenceAPI attendence) {
 		Attendence att = new Attendence();
 		return att;
+	}
+
+	@Override
+	public List<AttendenceAPI> getByStudentId(Long studentId) {
+		List<AttendenceAPI> attendencesDto = new ArrayList<AttendenceAPI>();
+		List<Attendence> attendences = new ArrayList<Attendence>();
+		attendenceRepository.findByStudentStudentId(studentId).forEach(attendences::add);
+		attendencesDto = attendences.stream().map(s -> this.mapDto(s)).collect(Collectors.toList());
+		return attendencesDto;
 	}
 
 }

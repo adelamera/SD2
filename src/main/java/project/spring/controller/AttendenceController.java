@@ -31,6 +31,11 @@ public class AttendenceController {
 		return attendenceService.getAllAttendences();
 	}
 
+	@GetMapping("/attendences/studentId")
+	public List<AttendenceAPI> getByStudentId(@RequestParam Long studentId) {
+		return attendenceService.getByStudentId(studentId);
+	}
+
 	@GetMapping("/attendences/id")
 	public ResponseEntity<AttendenceAPI> getAttendenceById(@RequestParam Long id) {
 		AttendenceAPI attendence = attendenceService.getAttendenceById(id);
