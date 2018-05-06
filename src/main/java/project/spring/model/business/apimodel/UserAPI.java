@@ -2,7 +2,7 @@ package project.spring.model.business.apimodel;
 
 import java.io.Serializable;
 
-public class UserDto implements Serializable {
+public class UserAPI implements Serializable {
 
 	/**
 	 * 
@@ -12,11 +12,11 @@ public class UserDto implements Serializable {
 	private String password;
 	private String type;
 
-	public UserDto() {
+	public UserAPI() {
 
 	}
 
-	public UserDto(String username, String password, String type) {
+	public UserAPI(String username, String password, String type) {
 		this.username = username;
 		this.password = password;
 		this.type = type;
@@ -43,11 +43,13 @@ public class UserDto implements Serializable {
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		if ((type.equals("student")) || (type.equals("teacher"))) {
+			this.type = type;
+		}
 	}
 
 	public String toString() {
-		return "Username: " + this.getUsername();
+		return "User: " + this.getUsername();
 	}
 
 }

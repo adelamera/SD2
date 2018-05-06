@@ -6,18 +6,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import project.spring.model.business.apimodel.UserDto;
+import project.spring.model.business.apimodel.UserAPI;
 import project.spring.model.dal.dbmodel.User;
-import project.spring.model.dal.repository.UserRepository;
+import project.spring.model.dal.repository.IUserRepository;
+import project.spring.utils.PasswordEncryptor;
 
 @Service
 public class UserService implements IUserService {
 
-	
-	private final UserRepository userRepository;
-	
+	private final IUserRepository userRepository;
+
 	@Autowired
-	public UserService(UserRepository userRepository) {
+	public UserService(IUserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 
@@ -34,28 +34,60 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public void saveUser(UserDto user) {
+	public boolean saveUser(UserAPI user) {
 		User userToSave = new User(user.getUsername(), user.getPassword(), user.getType());
-		userRepository.save(userToSave);
-	}
-
-	@Override
-	public void updateUser(Long id, UserDto user) {
-		User userToUpdate = this.getUserById(id);
-
-		if (userToUpdate != null) {
-			userToUpdate.setUsername(user.getUsername());
-			userToUpdate.setPassword(user.getPassword());
-			userToUpdate.setType(user.getType());
-			userRepository.save(userToUpdate);
+		if (userRepository.findByUsername(userToSave.getUsername()) != null) {
+			return false;
+		} else if ((user.getType().equals("student")) || (user.getType().equals("teacher"))) {
+			userToSave.setPassword(PasswordEncryptor.setPasswordEncrypt(userToSave.getPassword()));
+			userRepository.save(userToSave);
+			return true;
 		}
+		return false;
+
 	}
 
 	@Override
-	public void deleteUser(Long id) {
-		userRepository.delete(id);
+	public boolean updateUser(Long id, UserAPI user) {
+		User userToUpdate = this.getUserById(id);
+		if (userToUpdate != null) {
+			if (userRepository.findByUsername(user.getUsername()) == null) {
+				userToUpdate.setUsername(user.getUsername());
+				userToUpdate.setPassword(PasswordEncryptor.setPasswordEncrypt(user.getPassword()));
+				userToUpdate.setType(user.getType());
+				userRepository.save(userToUpdate);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteUser(Long id) {
+		User userToDelete = userRepository.findOne(id);
+		if (userToDelete != null) {
+			userRepository.delete(id);
+			return true;
+		} else {
+			return false;
+		}
 
 	}
-	
+
+	@Override
+	public String login(String username, String password) {
+		User user = userRepository.findByUsername(username);
+		if (user != null) {
+			if (user.getPassword().equals(PasswordEncryptor.setPasswordEncrypt(password))) {
+				return user.getType();
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public User getUserByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
 
 }

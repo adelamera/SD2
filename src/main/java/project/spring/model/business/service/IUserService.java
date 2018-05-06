@@ -2,7 +2,7 @@ package project.spring.model.business.service;
 
 import java.util.List;
 
-import project.spring.model.business.apimodel.UserDto;
+import project.spring.model.business.apimodel.UserAPI;
 import project.spring.model.dal.dbmodel.User;
 
 public interface IUserService {
@@ -10,11 +10,15 @@ public interface IUserService {
 	List<User> getAllUsers();
 
 	User getUserById(Long id);
+	
+	User getUserByUsername(String username);
 
-	void saveUser(UserDto user);
+	boolean saveUser(UserAPI user);
 
-	void updateUser(Long id, UserDto user);
+	boolean updateUser(Long id, UserAPI user);
 
-	void deleteUser(Long id);
+	boolean deleteUser(Long id);
+	
+	String login(String username, String password);
 
 }

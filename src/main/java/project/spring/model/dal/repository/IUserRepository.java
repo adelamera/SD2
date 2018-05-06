@@ -9,6 +9,8 @@ import project.spring.model.dal.dbmodel.User;
 
 @Repository
 @Transactional
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface IUserRepository extends CrudRepository<User, Long> {
+
+	public User findByUsername(String username);
 
 }

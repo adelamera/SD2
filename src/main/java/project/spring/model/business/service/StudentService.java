@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import project.spring.model.business.apimodel.StudentAPI;
 import project.spring.model.dal.dbmodel.Student;
+import project.spring.model.dal.dbmodel.User;
 import project.spring.model.dal.repository.IStudentRepository;
+import project.spring.model.dal.repository.IUserRepository;
 import project.spring.utils.EmailValidator;
 import project.spring.utils.PasswordEncryptor;
 import project.spring.utils.SecureTokenGenerator;
@@ -18,10 +20,12 @@ import project.spring.utils.SecureTokenGenerator;
 public class StudentService implements IStudentService {
 
 	private final IStudentRepository studentRepository;
+	private final IUserRepository userRepository;
 
 	@Autowired
-	public StudentService(IStudentRepository studentRepository) {
+	public StudentService(IStudentRepository studentRepository, IUserRepository userRepository) {
 		this.studentRepository = studentRepository;
+		this.userRepository = userRepository;
 	}
 
 	@Override
@@ -66,14 +70,16 @@ public class StudentService implements IStudentService {
 		Student studentToUpdate = studentRepository.findOne(id);
 		if (studentToUpdate != null) {
 			if (EmailValidator.validate(student.getEmail())) {
+				User userToUpdate = userRepository.findByUsername(studentToUpdate.getUsername());
+				userToUpdate.setUsername(student.getUsername());
+				userToUpdate.setPassword(PasswordEncryptor.setPasswordEncrypt(student.getPassword()));
 				studentToUpdate = map(student);
 				studentToUpdate.setStudentId(id);
 				studentToUpdate.setPassword(PasswordEncryptor.setPasswordEncrypt(studentToUpdate.getPassword()));
 				studentRepository.save(studentToUpdate);
+				userRepository.save(userToUpdate);
 				return true;
 			}
-		} else {
-			return false;
 		}
 		return false;
 
@@ -83,11 +89,12 @@ public class StudentService implements IStudentService {
 	public boolean deleteStudent(Long id) {
 		Student studentToDelete = studentRepository.findOne(id);
 		if (studentToDelete != null) {
+			User user = userRepository.findByUsername(studentToDelete.getUsername());
 			studentRepository.delete(id);
+			userRepository.delete(user.getUserId());
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 
 	}
 
@@ -103,6 +110,8 @@ public class StudentService implements IStudentService {
 				studentToUpdate.setStudentId(id);
 				studentToUpdate.setPassword(PasswordEncryptor.setPasswordEncrypt(studentToUpdate.getPassword()));
 				studentRepository.save(studentToUpdate);
+				User user = new User(studentToUpdate.getUsername(), studentToUpdate.getPassword(), "student");
+				userRepository.save(user);
 				return true;
 			}
 		}
@@ -131,6 +140,15 @@ public class StudentService implements IStudentService {
 		Student stud = new Student(student.getName(), student.getEmail(), student.getUsername(), student.getPassword(),
 				student.getGroup(), student.getHobby());
 		return stud;
+	}
+
+	@Override
+	public Long getId(String username, String password) {
+		Student student = studentRepository.findByUsernameAndPassword(username, PasswordEncryptor.setPasswordEncrypt(password));
+		if (student != null) {
+			return student.getStudentId();
+		}
+		return Long.valueOf(0);
 	}
 
 }

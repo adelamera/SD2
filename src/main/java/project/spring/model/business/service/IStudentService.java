@@ -19,5 +19,7 @@ public interface IStudentService {
 	boolean register(String username, StudentAPI student);
 	
 	StudentAPI login(String username, String password);
+	
+	Long getId(String username, String password);
 
 }

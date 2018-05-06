@@ -14,5 +14,7 @@ public interface IStudentRepository extends CrudRepository<Student, Long> {
 	public Student findByEmail(String email);
 
 	public Student findByUsername(String username);
+	
+	public Student findByUsernameAndPassword(String username, String password);
 
 }

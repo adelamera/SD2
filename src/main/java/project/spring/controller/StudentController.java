@@ -50,6 +50,16 @@ public class StudentController {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(student);
 		}
 	}
+	
+	@GetMapping("/students/username/password")
+	public ResponseEntity<Long> getId(@RequestParam String username, @RequestParam String password) {
+		Long id = studentService.getId(username, password);
+		if (id == 0) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		} else {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(id);
+		}
+	}
 
 	@PostMapping("/students")
 	public ResponseEntity<String> saveStudent(@RequestBody StudentAPI studentToSave) {
