@@ -14,6 +14,8 @@ public interface ISubmissionService {
 
 	SubmissionAPI findSubmissionById(Long id);
 
+	Long getStudentId(Long id);
+
 	boolean saveSubmission(SubmissionAPI submission, Long studentId, Long assignmentId);
 
 	boolean updateSubmission(Long id, int grade);

@@ -57,6 +57,16 @@ public class SubmissionController {
 		}
 	}
 
+	@GetMapping("/submissions/student/id")
+	public ResponseEntity<Long> getStudentId(@RequestParam Long id) {
+		Long studentId = submissionService.getStudentId(id);
+		if (studentId == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		} else {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(studentId);
+		}
+	}
+
 	@PostMapping("/submission/students/id/assignments/id")
 	public ResponseEntity<String> saveSubmission(@RequestParam Long studentId, @RequestParam Long assignmentId,
 			@RequestBody SubmissionAPI submission) {

@@ -119,6 +119,16 @@ public class SubmissionService implements ISubmissionService {
 		return false;
 	}
 
+	@Override
+	public Long getStudentId(Long id) {
+		Submission submission = submissionRepository.findOne(id);
+		if (submission != null) {
+			return submission.getStudent().getStudentId();
+		} else {
+			return null;
+		}
+	}
+
 	public SubmissionAPI mapDto(Submission submission) {
 		SubmissionAPI submissionDto = new SubmissionAPI(submission.getGrade(), submission.getLink(),
 				submission.getRemark());
