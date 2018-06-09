@@ -22,6 +22,7 @@ public class SubmissionService implements ISubmissionService {
 	private final ISubmissionRepository submissionRepository;
 	private final IStudentRepository studentRepository;
 	private final IAssignmentRepository assignmentRepository;
+	private static final int NR_SUBMISSIONS = 3;
 
 	@Autowired
 	public SubmissionService(ISubmissionRepository submissionRepository, IStudentRepository studentRepository,
@@ -82,13 +83,17 @@ public class SubmissionService implements ISubmissionService {
 		Submission submissionToSave = map(submission);
 		Student student = studentRepository.findOne(studentId);
 		Assignment assignment = assignmentRepository.findOne(assignmentId);
-		if ((assignment != null) && (student != null)) {
-			if (DateComparator.metDeadline(assignment.getDeadline())) {
-				submissionToSave.setStudent(student);
-				submissionToSave.setAssignment(assignment);
-				submissionToSave.setGrade(0);
-				submissionRepository.save(submissionToSave);
-				return true;
+		List<Submission> submissions = submissionRepository
+				.findByAssignmentAssignmentIdAndStudentStudentId(assignmentId, studentId);
+		if (submissions.size() < NR_SUBMISSIONS) {
+			if ((assignment != null) && (student != null)) {
+				if (DateComparator.metDeadline(assignment.getDeadline())) {
+					submissionToSave.setStudent(student);
+					submissionToSave.setAssignment(assignment);
+					submissionToSave.setGrade(0);
+					submissionRepository.save(submissionToSave);
+					return true;
+				}
 			}
 		}
 		return false;
